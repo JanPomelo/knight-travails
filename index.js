@@ -1,6 +1,7 @@
 "use strict";
-import { Knight, Position } from "./knight.js";
+import { Knight } from "./knight.js";
 import { createBoard } from "./buildGameBoard.js";
+import { Position } from "./Position.js";
 function moveKnight(startP, endP) {
     const knight = new Knight(new Position(startP[0], startP[1]));
     const board = createBoard();

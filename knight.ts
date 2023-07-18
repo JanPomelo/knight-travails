@@ -1,11 +1,9 @@
 import { Queue } from "./Queue.js";
-
+import { Position } from "./Position.js";
 export class Knight {
   private _startPosition: Position;
   private _bestMove: number;
   constructor(startPos: Position) {
-    //const row = Math.floor(Math.random() * 8);
-    //const col = Math.floor(Math.random() * 8);
     this._startPosition = startPos;
     this._bestMove = 63;
   }
@@ -14,11 +12,11 @@ export class Knight {
     return this._startPosition;
   }
 
-  _getBestMove() {
+  private _getBestMove() {
     return this._bestMove;
   }
 
-  _setBestMove(num: number) {
+  private _setBestMove(num: number) {
     this._bestMove = num;
   }
   getPossibleMoves(
@@ -35,7 +33,33 @@ export class Knight {
       this._setBestMove(currentMove);
       return;
     }
+    this._setNextMoves(position);
+    const allNexts: (Position | null)[] = this._pushNextMovesToArr(position);
+
+    for (let i = 0; i < allNexts.length; i++) {
+      if (allNexts[i]) {
+        if (board[allNexts[i]?.row as number][allNexts[i]?.column as number] === " ") {
+          board[allNexts[i]?.row as number][allNexts[i]?.column as number] = "x";
+          this.getPossibleMoves(allNexts[i] as Position, endPosition, board, this._getBestMove(), currentMove + 1);
+          board[allNexts[i]?.row as number][allNexts[i]?.column as number] = " ";
+        }
+      }
+    }
+  }
+
+  private _pushNextMovesToArr(position: Position) {
     const allNexts: (Position | null)[] = [];
+    allNexts.push(position.nextMove1);
+    allNexts.push(position.nextMove2);
+    allNexts.push(position.nextMove3);
+    allNexts.push(position.nextMove4);
+    allNexts.push(position.nextMove5);
+    allNexts.push(position.nextMove6);
+    allNexts.push(position.nextMove7);
+    allNexts.push(position.nextMove8);
+    return allNexts;
+  }
+  private _setNextMoves(position: Position) {
     position.nextMove1 = new Position(position.row - 1, position.column - 2, position);
     position.nextMove2 = new Position(position.row - 2, position.column - 1, position);
     position.nextMove3 = new Position(position.row - 2, position.column + 1, position);
@@ -76,25 +100,8 @@ export class Knight {
       position.nextMove3 = null;
       position.nextMove6 = null;
     }
-    allNexts.push(position.nextMove1);
-    allNexts.push(position.nextMove2);
-    allNexts.push(position.nextMove3);
-    allNexts.push(position.nextMove4);
-    allNexts.push(position.nextMove5);
-    allNexts.push(position.nextMove6);
-    allNexts.push(position.nextMove7);
-    allNexts.push(position.nextMove8);
-
-    for (let i = 0; i < allNexts.length; i++) {
-      if (allNexts[i]) {
-        if (board[allNexts[i]?.row as number][allNexts[i]?.column as number] === " ") {
-          board[allNexts[i]?.row as number][allNexts[i]?.column as number] = "x";
-          this.getPossibleMoves(allNexts[i] as Position, endPosition, board, this._getBestMove(), currentMove + 1);
-          board[allNexts[i]?.row as number][allNexts[i]?.column as number] = " ";
-        }
-      }
-    }
   }
+
   levelOrder(fun: Function | null = null) {
     if (this._startPosition === null) {
       return [];
@@ -133,33 +140,5 @@ export class Knight {
       arr.unshift([position.row, position.column]);
     }
     return arr;
-  }
-}
-
-export class Position {
-  row: number;
-  column: number;
-  nextMove1: Position | null;
-  nextMove2: Position | null;
-  nextMove3: Position | null;
-  nextMove4: Position | null;
-  nextMove5: Position | null;
-  nextMove6: Position | null;
-  nextMove7: Position | null;
-  nextMove8: Position | null;
-  prevPos: Position | null;
-
-  constructor(row: number, column: number, prevPos: Position | null = null) {
-    this.row = row;
-    this.column = column;
-    this.nextMove1 = null;
-    this.nextMove2 = null;
-    this.nextMove3 = null;
-    this.nextMove4 = null;
-    this.nextMove5 = null;
-    this.nextMove6 = null;
-    this.nextMove7 = null;
-    this.nextMove8 = null;
-    this.prevPos = prevPos;
   }
 }

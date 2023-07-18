@@ -1,6 +1,5 @@
 "use strict";
-import { Knight, Position } from "./knight.js";
-
+// import { Knight } from "./knight.js";
 const rows: number = 8;
 const cols: number = 8;
 
@@ -15,7 +14,7 @@ export function createBoard(): string[][] {
   return board;
 }
 
-function placeKnightOnBoard(knight: Knight, board: string[][]): void {
+/*function placeKnightOnBoard(knight: Knight, board: string[][]): void {
   const row = knight.startPosition.row;
   const col = knight.startPosition.column;
   board[row][col] = "k";
