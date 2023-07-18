@@ -12,6 +12,10 @@
   "author": "Jan Steikowski <j.steikowski@aol.com>",
   "license": "MIT",
   "dependencies": {
+    "lodash": "^4.17.21",
     "typescript": "^5.1.6"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.195"
   }
 }
