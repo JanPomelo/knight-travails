@@ -6,16 +6,18 @@ function moveKnight(startP, endP) {
     const board = createBoard();
     knight.getPossibleMoves(knight.startPosition, new Position(endP[0], endP[1]), board);
     let desPos = null;
-    const posi = knight.levelOrder((position) => {
-        console.log(`currentPos: ${position.row}, ${position.column} and endPos: ${endP[0]}, ${endP[1]}`);
+    knight.levelOrder((position) => {
         if (position.row === endP[0] && position.column === endP[1]) {
-            console.log("hallo");
-            desPos = position;
-            return;
+            if (!desPos)
+                desPos = position;
         }
         return;
     });
-    //const posi = knight.levelOrder();
-    return desPos;
+    const result = knight.getAllMovesToEndPos(desPos);
+    console.log(`You made it in ${result.length - 1} moves! Here is your path:`);
+    for (let i = 0; i < result.length; i++) {
+        console.log(result[i]);
+    }
+    return result;
 }
-console.log(moveKnight([0, 0], [1, 2]));
+moveKnight([5, 6], [1, 2]);

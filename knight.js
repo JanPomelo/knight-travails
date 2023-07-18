@@ -25,14 +25,14 @@ export class Knight {
             return;
         }
         const allNexts = [];
-        position.nextMove1 = new Position(position.row - 1, position.column - 2);
-        position.nextMove2 = new Position(position.row - 2, position.column - 1);
-        position.nextMove3 = new Position(position.row - 2, position.column + 1);
-        position.nextMove4 = new Position(position.row - 1, position.column + 2);
-        position.nextMove5 = new Position(position.row + 1, position.column + 2);
-        position.nextMove6 = new Position(position.row + 2, position.column + 1);
-        position.nextMove7 = new Position(position.row + 2, position.column - 1);
-        position.nextMove8 = new Position(position.row + 1, position.column - 2);
+        position.nextMove1 = new Position(position.row - 1, position.column - 2, position);
+        position.nextMove2 = new Position(position.row - 2, position.column - 1, position);
+        position.nextMove3 = new Position(position.row - 2, position.column + 1, position);
+        position.nextMove4 = new Position(position.row - 1, position.column + 2, position);
+        position.nextMove5 = new Position(position.row + 1, position.column + 2, position);
+        position.nextMove6 = new Position(position.row + 2, position.column + 1, position);
+        position.nextMove7 = new Position(position.row + 2, position.column - 1, position);
+        position.nextMove8 = new Position(position.row + 1, position.column - 2, position);
         if (position.row < 2) {
             position.nextMove2 = null;
             position.nextMove3 = null;
@@ -119,9 +119,21 @@ export class Knight {
         }
         return;
     }
+    getAllMovesToEndPos(position) {
+        const arr = [];
+        if (!position) {
+            return arr;
+        }
+        arr.unshift([position.row, position.column]);
+        while (position.prevPos) {
+            position = position.prevPos;
+            arr.unshift([position.row, position.column]);
+        }
+        return arr;
+    }
 }
 export class Position {
-    constructor(row, column) {
+    constructor(row, column, prevPos = null) {
         this.row = row;
         this.column = column;
         this.nextMove1 = null;
@@ -132,5 +144,6 @@ export class Position {
         this.nextMove6 = null;
         this.nextMove7 = null;
         this.nextMove8 = null;
+        this.prevPos = prevPos;
     }
 }
