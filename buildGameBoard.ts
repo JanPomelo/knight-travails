@@ -3,6 +3,7 @@
 const rows: number = 8;
 const cols: number = 8;
 
+// Function for creating the Game Board
 export function createBoard(): string[][] {
   let board: string[][] = [];
   for (let i = 0; i < rows; i++) {
