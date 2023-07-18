@@ -1,9 +1,9 @@
+import { Queue } from "./Queue.js";
 export class Knight {
-    constructor() {
+    constructor(startPos) {
         //const row = Math.floor(Math.random() * 8);
         //const col = Math.floor(Math.random() * 8);
-        const startPosition = new Position(6, 4);
-        this._startPosition = startPosition;
+        this._startPosition = startPos;
         this._bestMove = 63;
     }
     get startPosition() {
@@ -24,7 +24,6 @@ export class Knight {
             this._setBestMove(currentMove);
             return;
         }
-        console.log(currentMove);
         const allNexts = [];
         position.nextMove1 = new Position(position.row - 1, position.column - 2);
         position.nextMove2 = new Position(position.row - 2, position.column - 1);
@@ -83,6 +82,42 @@ export class Knight {
                 }
             }
         }
+    }
+    levelOrder(fun = null) {
+        if (this._startPosition === null) {
+            return [];
+        }
+        const queue = new Queue();
+        queue.enqueue(this._startPosition);
+        const arr = [];
+        while (!queue.isEmpty) {
+            let node = queue.peek();
+            if (!fun)
+                arr.push([node.row, node.column]);
+            else
+                fun(node);
+            if (node.nextMove1)
+                queue.enqueue(node.nextMove1);
+            if (node.nextMove2)
+                queue.enqueue(node.nextMove2);
+            if (node.nextMove3)
+                queue.enqueue(node.nextMove3);
+            if (node.nextMove4)
+                queue.enqueue(node.nextMove4);
+            if (node.nextMove5)
+                queue.enqueue(node.nextMove5);
+            if (node.nextMove6)
+                queue.enqueue(node.nextMove6);
+            if (node.nextMove7)
+                queue.enqueue(node.nextMove7);
+            if (node.nextMove8)
+                queue.enqueue(node.nextMove8);
+            queue.dequeue();
+        }
+        if (!fun) {
+            return arr;
+        }
+        return;
     }
 }
 export class Position {

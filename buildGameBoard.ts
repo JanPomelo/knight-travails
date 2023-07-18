@@ -32,7 +32,7 @@ function logBoad(board: string[][]) {
   }
   console.log("--------------------------------");
 }
-
+/*
 const knight = new Knight();
 let board: string[][] = createBoard();
 placeKnightOnBoard(knight, Object.create(board));
@@ -63,3 +63,4 @@ if (knight.startPosition.nextMove8) {
 }
 //logBoad(board);
 //console.log(knight.startPosition);
+*/

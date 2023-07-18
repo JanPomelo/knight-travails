@@ -1,3 +1,5 @@
+import { Queue } from "./Queue.js";
+
 export class Knight {
   private _startPosition: Position;
   private _bestMove: number;
@@ -92,6 +94,32 @@ export class Knight {
         }
       }
     }
+  }
+  levelOrder(fun: Function | null = null) {
+    if (this._startPosition === null) {
+      return [];
+    }
+    const queue: Queue = new Queue();
+    queue.enqueue(this._startPosition);
+    const arr = [];
+    while (!queue.isEmpty) {
+      let node = queue.peek();
+      if (!fun) arr.push([node.row, node.column]);
+      else fun(node);
+      if (node.nextMove1) queue.enqueue(node.nextMove1);
+      if (node.nextMove2) queue.enqueue(node.nextMove2);
+      if (node.nextMove3) queue.enqueue(node.nextMove3);
+      if (node.nextMove4) queue.enqueue(node.nextMove4);
+      if (node.nextMove5) queue.enqueue(node.nextMove5);
+      if (node.nextMove6) queue.enqueue(node.nextMove6);
+      if (node.nextMove7) queue.enqueue(node.nextMove7);
+      if (node.nextMove8) queue.enqueue(node.nextMove8);
+      queue.dequeue();
+    }
+    if (!fun) {
+      return arr;
+    }
+    return;
   }
 }
 
