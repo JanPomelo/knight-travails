@@ -3,6 +3,18 @@
 This is the solution for the Knight Travails project from the website "The Odin Project".
 The project is done with TypeScript.
 
+# How to test
+
+type
+
+```
+node index.js
+```
+
+to start the Script.
+
+If you want to change the start and end position, open index.ts (or index.js if you don't want to compile the ts file again) and change the values in the moveKnight call
+
 # Classes
 
 ## Knight
@@ -53,3 +65,31 @@ goes Breadth First through the Position Tree and passes the position to the func
 safes all moves from the start position to the end position into an array
 
 **returns** the array with the positions
+
+## Position
+
+### Attributes
+
+- row: number
+- column: number
+- nextMove1: Position | null
+- nextMove2: Position | null;
+- nextMove3: Position | null;
+- nextMove4: Position | null;
+- nextMove5: Position | null;
+- nextMove6: Position | null;
+- nextMove7: Position | null;
+- nextMove8: Position | null;
+- prevPos: Position | null;
+
+# Functions
+
+## createBoard()
+
+Creates the gameBoard (8x8)
+
+**returns** the board Array
+
+## moveknight(startP: number[], endP: number[])
+
+Function for calculating the fastest way to move from one Position to another Position
